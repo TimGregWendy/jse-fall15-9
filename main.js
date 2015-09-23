@@ -7,11 +7,26 @@ $(function() { //when DOM is ready...
 		{username:'Person3'}
 	]);
 
-	app.tasks = new TaskCollection([
-		// test data here
+	app.issues = new IssueCollection([
+		{title:'task1 title',
+		description:'task1 description',
+		creator:'Person1',
+		assignee:'Person2',
+		status:'assigned'},
+		{title:'task2 title',
+		description:'task2 description',
+		creator:'Person2',
+		assignee:'',
+		status:'unassigned'},
+		{title:'task3 title',
+		description:'task3 description',
+		creator:'Person3',
+		assignee:'Person1',
+		status:'assigned'}
 	]);
 
-	app.gui = new GUI(app.users,
-						app.tasks,
-						'#app');// selector of main div
-}
+app.gui = new GUI(app.users,
+					app.issues,
+					'#app');// selector of main div
+
+})
