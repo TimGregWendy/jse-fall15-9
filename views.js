@@ -35,8 +35,19 @@ var UserView = Backbone.View.extend({
 
 });
 
-var LoginView = Backbone.View.extend({
-
+var LoginView = Backbone.View.extend ({
+	render: function () {
+		var username = this.collection;
+		var userSelf = this;
+		var inputUsername = '<input type="text" value=" '  + username + '" />'
+		var password = this.collection;
+		var inputPassword = '<input type="text" value=" '  + password + '" />'
+		// userSelf.$el.html("<div>Login:<br>" + inputUsername + "</div>");
+		// userSelf.$el.html("<div>Password:<br>" + inputPassword + "</div>");
+		userSelf.$el.html("<div>Login:<br>" + inputUsername + "</div>" + "<div>Password:<br>" + inputPassword + "</div>")
+		//maybe can combine lines 43 & 44 but starting with two separate divs.//
+		
+	}
 });
 
 
@@ -45,6 +56,10 @@ function GUI(users,issues,el) {
 	var unAssignedTasks = new UnassignedTasksView({collection: issues});
 	unAssignedTasks.render();
 	$(el).append(unAssignedTasks.$el);
+
+	var login = new LoginView({collection: users});
+	login.render();
+	$(el).append(login.$el);
 };
 
 return GUI;
