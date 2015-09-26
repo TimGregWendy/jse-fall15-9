@@ -36,17 +36,27 @@ var UserView = Backbone.View.extend({
 });
 
 var LoginView = Backbone.View.extend ({
+	
+	initialize: function() {
+		console.log(this.collection);
+		console.log(this.collection.findWhere({username:'Person1'}));
+		var username=this.collection.findWhere({username:'Person1'});
+		console.log(username.attributes.password);
+		console.log($(this.el));
+	},
 	render: function () {
-		var username = this.collection;
+		var certainUserName = ($('#typedName').val());
+		var username = this.collection.findWhere({username:'Person1'}).attributes.username;
 		var userSelf = this;
-		var inputUsername = '<input type="text" value=" '  + username + '" />'
+		var inputUsername = '<input type="text" id="typedName" value=" input username  " />'
+		console.log($('#typedName'));
 		var password = this.collection;
 		var inputPassword = '<input type="text" value=" '  + password + '" />'
 		// userSelf.$el.html("<div>Login:<br>" + inputUsername + "</div>");
 		// userSelf.$el.html("<div>Password:<br>" + inputPassword + "</div>");
 		userSelf.$el.html("<div>Login:<br>" + inputUsername + "</div>" + "<div>Password:<br>" + inputPassword + "</div>")
 		//maybe can combine lines 43 & 44 but starting with two separate divs.//
-		
+	// this.model.get('word');	
 	}
 });
 
