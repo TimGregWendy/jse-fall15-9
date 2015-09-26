@@ -36,18 +36,53 @@ var UserView = Backbone.View.extend({
 });
 
 var LoginView = Backbone.View.extend ({
+	
+	events : {
+		'click #nameButton': 'nameOfFunction'
+
+	},
+
+	nameOfFunction: function() {
+		console.log(($('#typedName').val()));
+		var certainUserName = ($('#typedName').val());
+		var userValid = this.collection.findWhere({username: certainUserName});
+		var certainUserPassword = ($('#typedPassword').val());
+
+		if(userValid.attributes.password == certainUserPassword) {
+			console.log("Success");
+			}
+		else {
+			console.log("Nope");
+		}	
+
+	},
+
+	
+	
+
+
+	initialize: function() {
+		//This is just to see processes-- doesn't actually move project forward//
+		console.log(this.collection);
+		console.log(this.collection.findWhere({username:'Person1'}));
+		var username=this.collection.findWhere({username:'Person1'});
+		console.log(username.attributes.password);
+		console.log($(this.el));
+	},
 	render: function () {
-		var username = this.collection;
 		var userSelf = this;
-		var inputUsername = '<input type="text" value=" '  + username + '" />'
-		var password = this.collection;
-		var inputPassword = '<input type="text" value=" '  + password + '" />'
-		// userSelf.$el.html("<div>Login:<br>" + inputUsername + "</div>");
-		// userSelf.$el.html("<div>Password:<br>" + inputPassword + "</div>");
-		userSelf.$el.html("<div>Login:<br>" + inputUsername + "</div>" + "<div>Password:<br>" + inputPassword + "</div>")
-		//maybe can combine lines 43 & 44 but starting with two separate divs.//
 		
+		// var username = this.collection.findWhere({username:'Person1'}).attributes.username;
+		var inputUsername = '<input type="text" id="typedName" value=" input username  " />'
+		console.log($('#typedName'));
+		
+		var inputPassword = '<input type="text" id="typedPassword" value=" input password " />'
+		
+		var userButton = '<button id ="nameButton">Enter</button>';
+		userSelf.$el.html("<div>Login:<br>" + inputUsername + "</div>" +
+			 "<div>Password:<br>" + inputPassword + "</div>" + userButton)
 	}
+
 });
 
 
