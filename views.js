@@ -33,11 +33,16 @@ var UserTasksView = Backbone.View.extend({
 
 var UserView = Backbone.View.extend({
 	events: {
-		'click #logoutButton' : 'logOutUser'
+		'click #logoutButton' : 'logOutUser',
+		'click #addTaskButton': 'addTask'
 	},
 
 	logOutUser: function() {
+		console.log('hey');
+	},
 
+	addTask:function() {
+		console.log('yo');
 	},
 
 	initialize: function() {
@@ -50,8 +55,10 @@ var UserView = Backbone.View.extend({
 	render: function() {
 		var taskSelf = this;
 		var logoutButton = '<button id ="logoutButton">Logout</button>';
-		taskSelf.$el.html("<div>Logout:</div>" + logoutButton)
-
+		var addTaskButton= '<button id="addTaskButton">Add Task</button>';
+		taskSelf.$el.html("<div>Logout:</div>" + logoutButton + addTaskButton);
+		console.log("Am I rendering?");
+		$("#app").append(this.$el);
 	}
 
 });
@@ -59,11 +66,11 @@ var UserView = Backbone.View.extend({
 var LoginView = Backbone.View.extend ({
 	
 	events : {
-		'click #nameButton': 'nameOfFunction'
+		'click #nameButton': 'goLoginFunction'
 
 	},
 
-	nameOfFunction: function() {
+	goLoginFunction: function() {
 		// console.log(($('#typedName').val()));
 		var certainUserName = ($('#typedName').val());
 		var userValid = this.collection.findWhere({username: certainUserName});
@@ -71,14 +78,12 @@ var LoginView = Backbone.View.extend ({
 
 		if(userValid.attributes.password == certainUserPassword) {
 			console.log("Success");
-			$('#nameButton').hide();
-			$('#typedName').hide();
-			$('#typedPassword').hide();
-			$('#typedName').hide();
-			
+			this.remove();
+			var userView = new UserView({collection: app.issues});
+			userView.render();
 			}
 		else {
-			console.log("Nope");
+			alert("Nope");
 		}	
 
 
